@@ -57,27 +57,6 @@ best_hand_eu = start_hand([king_of_spades,king_of_diamonds])'''
 
 
 
-##################################################################################################
-
-#suit= random.choice(["diamonds","spades","clubs","hearts"])
-#L=range(2,11)
-#L.extend(["Jack","Queen","King","Ace"])
-#rank= random.choice(L)
-##print rank
-#card1= cards(suit,rank)
-#print card1
-
-####################################################################################3
-
-
-
-'''def get_compared_cards(card_1,card_2=None,card_3=None,card_4=None,card_5=None,card_6=None,card_7=None):
-    lst = [card_3, card_4, card_5, card_6, card_7]
-    compared_cards = [card_1,card_2]
-    for i in lst:
-        if i is not None:
-            compared_cards.append(i)
-    return compared_cards'''
 
 def return_higher_card(list_of_cards):
     #L = get_compared_cards(card_1, card_2, card_3, card_4, card_5, card_6, card_7)
@@ -90,12 +69,6 @@ def return_lower_card(list_of_cards):
     sorted_L = sorted(list_of_cards, key=operator.attrgetter("number_value"),reverse=True)
     return sorted_L[-1]
 
-
-
-#print(return_higher_card([lst]))
-
-
-#עוד לבדוק מה קורה בפונקציות lower,higher כי מה שעכשיו קורה לא אמור לקרות!!!
 
 
 class start_hand:
@@ -116,13 +89,8 @@ def combinations_ranking():
     D={"High Card":0, "Pair":1 , "two pair":2, "Three of a kind":3, "Straight":4, "Flush":5, "Full house":6,\
     "Four of a kind":7, "Straight flush":8 , "ROYAL FLUSH":9}
     return D
-    #if cards("diamonds"):
-     #   value=9
+ 
 
-
-
-#הדבר הבא שצריך לעשות זה לבנות פונקציה או
-#אולי אובייקט שמכניסים לו 7 קלפים והוא יודע לתת את הקומבינציה הכי גדולה שיש בקלפים האלה
 
 
 
@@ -509,7 +477,6 @@ class player:
 
 maxim= player("maxim")
 
-#maxim.add_card(card31)
 
 non_folded_players = [maxim] #list of players that  didnt fold yet #at the start of each round all player will be in it
 common_cards= [] #list of common cards that have been opened
@@ -571,47 +538,7 @@ river(non_folded_players)
 print(common_cards)
 print(maxim.common_cards)
 
-#idea (maybe): to build a class/function that every time it activates there is some action in the game, for instance when
-# to open a new card or to remove a player from the non-folded list or something of the sort... 
 
-
-#print(card_generator())
-#print(card_generator())
-#print(card_generator())
-#print(card_generator())
-#print(card_generator())
-
-
-
-##################################################################################################
-
-#suit= random.choice(["diamonds","spades","clubs","hearts"])
-#L=range(2,11)
-#L.extend(["Jack","Queen","King","Ace"])
-#rank= random.choice(L)
-##print rank
-#card1= cards(suit,rank)
-#print card1
-
-####################################################################################3
-
-
-
-
-
-
-
-    
-
-
-
-
-
-#
-#print (cards_same_suit([card31, card32, card33, card34, card35, card36, card37]))
-#print(flush([card31, card32, card33, card34, card35, card36, card37]))
-
-#print(straight_flush_and_royal_flush([card31, card32, card33, card34, card35, card36, card37]))
 
 
 
