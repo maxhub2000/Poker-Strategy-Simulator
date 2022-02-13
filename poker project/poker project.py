@@ -23,6 +23,15 @@ class cards:
     def __repr__(self):
         return str(self.rank) + " of " + str(self.suit)
 
+
+    # 13.02.2022 update:
+    # comparison function between 2 cards instances
+    def __eq__(self, other):
+        if (isinstance(other, cards)):
+            return self.suit == other.suit and self.rank == other.rank
+        return False
+
+
     '''def cards_values(self):
         card_val = {"Jack": 11, "Queen": 12, "King": 13, "Ace": 14}
         for i in range(2, 11):
@@ -68,6 +77,9 @@ def return_lower_card(list_of_cards):
     #L = get_compared_cards(card_1, card_2, card_3, card_4, card_5, card_6, card_7)
     sorted_L = sorted(list_of_cards, key=operator.attrgetter("number_value"),reverse=True)
     return sorted_L[-1]
+
+
+#עוד לבדוק מה קורה בפונקציות lower,higher כי מה שעכשיו קורה לא אמור לקרות!!!
 
 
 
@@ -268,7 +280,7 @@ lst_1 = [card11,card12,card13,card14,card15,card16,card17]
 lst_2 = [card21,card22,card23,card24,card25,card26,card27]
 lst_3 = [card31,card32,card33,card34,card35,card36,card37]
 
-#######combinations and dscision which combination is stronger ###################################################
+#######combinations and decision which combination is stronger ###################################################
 
 def strongest_combination(list_of_cards):
     option_1= straight_flush_and_royal_flush(list_of_cards)
@@ -459,7 +471,7 @@ def Kicker(hand, combination):
     Kicker = return_higher_card(not_in_combination)
     return Kicker
 
-#######combinations and dscision which combination is stronger ##################################################3
+#######combinations and decision which combination is stronger ###################################################
 
 #print (strongest_hand(lst_0,lst_1))
 
@@ -542,3 +554,42 @@ print(maxim.common_cards)
 
 
 
+
+
+
+######## starting at 13.02.22:
+
+
+def single_card_generator():
+    suit = random.choice(["diamonds","spades","clubs","hearts"])
+    possible_ranks = list(range(2,11))
+    possible_ranks.extend(["Jack","Queen","King","Ace"])
+    #L.extend(["Jack","Queen","King","Ace"])
+    rank = random.choice(possible_ranks)
+    #card1 = cards(suit,rank)
+    return cards(suit,rank)
+
+
+print("single_card_generator: ", single_card_generator())
+
+
+def multiple_card_generator(n):
+    # get n random generated cards without doubles
+    generated_cards = []
+    while len(generated_cards) < n:
+        generated_card = single_card_generator()
+        if generated_card not in generated_cards:
+            generated_cards.append(generated_card)
+    return generated_cards
+             
+
+print("multiple_card_generator: ",multiple_card_generator(7))
+
+
+
+# c1 = cards("spades",7)
+# c2 = cards("spades",7)
+
+# print(c1 == c2) 
+
+# print(str(c1)) 
