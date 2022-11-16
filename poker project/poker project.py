@@ -23,15 +23,6 @@ class cards:
     def __repr__(self):
         return str(self.rank) + " of " + str(self.suit)
 
-
-    # 13.02.2022 update:
-    # comparison function between 2 cards instances
-    def __eq__(self, other):
-        if (isinstance(other, cards)):
-            return self.suit == other.suit and self.rank == other.rank
-        return False
-
-
     '''def cards_values(self):
         card_val = {"Jack": 11, "Queen": 12, "King": 13, "Ace": 14}
         for i in range(2, 11):
@@ -77,9 +68,6 @@ def return_lower_card(list_of_cards):
     #L = get_compared_cards(card_1, card_2, card_3, card_4, card_5, card_6, card_7)
     sorted_L = sorted(list_of_cards, key=operator.attrgetter("number_value"),reverse=True)
     return sorted_L[-1]
-
-
-#עוד לבדוק מה קורה בפונקציות lower,higher כי מה שעכשיו קורה לא אמור לקרות!!!
 
 
 
@@ -280,7 +268,7 @@ lst_1 = [card11,card12,card13,card14,card15,card16,card17]
 lst_2 = [card21,card22,card23,card24,card25,card26,card27]
 lst_3 = [card31,card32,card33,card34,card35,card36,card37]
 
-#######combinations and decision which combination is stronger ###################################################
+#######combinations and dscision which combination is stronger ###################################################
 
 def strongest_combination(list_of_cards):
     option_1= straight_flush_and_royal_flush(list_of_cards)
@@ -471,10 +459,27 @@ def Kicker(hand, combination):
     Kicker = return_higher_card(not_in_combination)
     return Kicker
 
-#######combinations and decision which combination is stronger ###################################################
+#######combinations and dscision which combination is stronger ##################################################3
 
 #print (strongest_hand(lst_0,lst_1))
 
+
+
+class player:
+    def __init__(self, name):
+        self.name = name
+        self.start_hand = []
+        self.common_cards = []
+
+    def add_card(self,card):
+        self.common_cards.append(card)
+
+
+maxim= player("maxim")
+
+
+non_folded_players = [maxim] #list of players that  didnt fold yet #at the start of each round all player will be in it
+common_cards= [] #list of common cards that have been opened
 
 
 ###card generator###
@@ -502,145 +507,39 @@ def current_cards(card):
         return "no doubles please"
 
 ###card generator###
+ 
 
 
-
-
-
-######## starting at 13.02.22
-
-
-def single_card_generator():
-    suit = random.choice(["diamonds","spades","clubs","hearts"])
-    possible_ranks = list(range(2,11))
-    possible_ranks.extend(["Jack","Queen","King","Ace"])
-    #L.extend(["Jack","Queen","King","Ace"])
-    rank = random.choice(possible_ranks)
-    #card1 = cards(suit,rank)
-    return cards(suit,rank)
-
-
-print("single_card_generator: ", single_card_generator())
-
-
-def multiple_card_generator(n, used_cards = []):
-    # get n random generated cards without doubles.
-    # the used_cards argument is a list of cards already used in a current poker round, and so if we wanted
-    # to generate cards for rounds we should generate cards that were not used already in the current round.
-
-
-    # if not used_cards:
-    #     generated_cards = []
-    # else:
-    #     #generated_cards = used_cards
-    #     generated_cards = used_cards.copy()
-
-    generated_cards = []
-
-    #card_count = 0
-    while len(generated_cards) < n:
-        generated_card = single_card_generator()
-        if (generated_card not in generated_cards) and (generated_card not in used_cards):
-            generated_cards.append(generated_card)
-            #card_count +=1
-
-    return generated_cards
-             
-
-    # while len(generated_cards) < n:
-    #     generated_card = single_card_generator()
-    #     if generated_card not in generated_cards:
-    #         generated_cards.append(generated_card)
-    # return generated_cards
-
-print("multiple_card_generator: ",multiple_card_generator(7))
-
-
-# c1 = cards("spades",7)
-# c2 = cards("spades",7)
-# print(c1 == c2) 
-# print(str(c1)) 
-
-
-######## starting at 13.02.22
-
-
-
-
-class player:
-    def __init__(self, name):
-        self.name = name
-        self.start_hand = []
-        self.common_cards = []
-
-    # generate starting hand for each round
-    def get_current_starting_hand(self, cards):
-        self.start_hand.extend(cards)
-
-    # adds generated common cards to the player's common cards
-    def add_cards_to_common(self, cards):
-        self.common_cards.extend(cards)
-
-
-maxim = player("maxim")
-dude = player("dude")
-bro = player("bro")
-
-
-players = [maxim, dude, bro]
-non_folded_players = [maxim, dude, bro] # list of players that didn't fold yet. At the start of each round all players will be in it
-common_cards = [] # general (not specific to a player) list of common cards that were opened. In poker also called: "community cards"
-
-used_cards_for_current_round = [] # list of cards that were already used for this round, so we know we can't use them anymore.
-
-
-def generate_starting_hand_for_all_players(players):
-    # generate starting hands and add them each of the players
-    for player in players:
-        cards = multiple_card_generator(2, used_cards_for_current_round) # generate 2 cards for starting hand
-        used_cards_for_current_round.extend(cards) # update list of cards that were already used for this round
-        player.get_current_starting_hand(cards) # add the starting hand to the player object
-
-generate_starting_hand_for_all_players(players)
-print("\n")
-# print("used_cards_for_current_round: ",used_cards_for_current_round)
-for player in players:
-    print(player.name,"starting hand: " ,player.start_hand)
-# print("\n")
-
-
-def generate_common_cards(n, non_folded_players):
-    # adds the generated cards to the general common_cards list and also
-    # to the common_cards list of each of the non folded players
-    cards = multiple_card_generator(n, used_cards_for_current_round) # generate n cards 
-    common_cards.extend(cards) # update list of general common cards 
-    used_cards_for_current_round.extend(cards) # update list of cards that were already used for this round
+def add_card_to_common(non_folded_players):
+    #adds the new card to the common cards in general and to the 
+    #common cards that inside each player's class of the non folded players
+    card=card_generator()
+    common_cards.append(card)
     for player in non_folded_players:
-        # update list of common cards for each of the non-folded players
-        player.add_cards_to_common(cards)
+        player.add_card(card)
+
 
 def flop(non_folded_players):
-    # generate 3 cards for flop
-    generate_common_cards(3, non_folded_players)
+    # the for loop is to activate the function 3 times
+    for i in range(3):
+        add_card_to_common(non_folded_players)
 
 def turn(non_folded_players):
-    # generate 1 card for turn
-    generate_common_cards(1, non_folded_players)
+    add_card_to_common(non_folded_players)
 
 def river(non_folded_players):
-    # generate 1 card for river
-    generate_common_cards(1, non_folded_players)
+    add_card_to_common(non_folded_players)
 
 #add_card_to_common(non_folded_players)
 
 flop(non_folded_players)
 turn(non_folded_players)
 river(non_folded_players)
-print("common_cards: ",common_cards)
-print("\n")
-print("used_cards_for_current_round: ",used_cards_for_current_round)
-# print("maxim.common_cards: ",maxim.common_cards)
-# print("dude.common_cards: ",dude.common_cards)
-# print("bro.common_cards: ",bro.common_cards)
+print(common_cards)
+print(maxim.common_cards)
+
+
+
+
 
 
