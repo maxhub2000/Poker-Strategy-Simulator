@@ -454,6 +454,19 @@ def strongest_hand(hand_1,hand_2):
         # now i will build functions that can determin who is the winner between 2 combinations and 
         #then refer to them here.
 
+# #old kicker without list comprhension
+# def Kicker(hand, combination):
+#     #return hand,combination
+#     not_in_combination = []
+#     for card in hand:
+#         #print(card.rank)
+#         if card.rank not in combination:
+#             not_in_combination.append(card)
+#     #return not_in_combination
+#     Kicker = return_higher_card(not_in_combination)
+#     return Kicker
+
+
 
 
 def Kicker(hand, combination):
@@ -467,6 +480,8 @@ def Kicker(hand, combination):
 ## testing kicker
 test_hand_1 = [cards("spades","Jack"),cards("hearts","Jack"),cards("spades","Jack"),cards("diamonds",8),cards("hearts","Jack")]
 test_hand_2 = [cards("hearts",10),cards("diamonds",10),cards("hearts",10),cards("spades",10),cards("diamonds","King"),]
+test_hand_1 = [cards("spades",8),cards("hearts",2),cards("spades",10),cards("diamonds","Ace"),cards("hearts","Jack")]
+test_hand_2 = [cards("hearts",8),cards("diamonds",6),cards("hearts",10),cards("spades",10),cards("diamonds","King"),]
 print ("Kicker test: ", strongest_hand(test_hand_1,test_hand_2))
 
 
