@@ -1,5 +1,3 @@
-
-
 import random
 import operator
 
@@ -30,20 +28,31 @@ class cards:
         return card_val'''
 
 
+# def cards_values():
+#         card_val = {"Jack": 11, "Queen": 12, "King": 13, "Ace": 14}
+#         for i in range(2, 11):
+#             card_val[i] = i
+#         return card_val
+
+
 def cards_values():
-        card_val = {"Jack": 11, "Queen": 12, "King": 13, "Ace": 14}
-        for i in range(2, 11):
-            card_val[i] = i
+        # initiate the dict with the numbered cards
+        card_val = { i:i for i in range(2, 11) }
+        # add the non-numbered cards to the dict 
+        card_val.update({"Jack": 11, "Queen": 12, "King": 13, "Ace": 14})
         return card_val
 
+print(f"cards_values function test: {cards_values()}")
 
 
 def cards_values_reversed():
-    card_val_reversed = {1: "Ace"} # in case Ace is used as 1 in straight
-    for i in cards_values():
-        card_val_reversed[cards_values()[i]] = i
-    return card_val_reversed 
+    # Create the dict by using reversing keys and values from cards_values dict
+    card_val_reversed = { cards_values()[i]:i for i in cards_values() }
+    # In case Ace is used as 1 in straight    
+    card_val_reversed.update({1: "Ace"}) 
+    return card_val_reversed
 
+print(f"cards_values_reversed function test: {cards_values_reversed()}")
 
 
 '''class start_hand:
@@ -100,12 +109,11 @@ def high_card(list_of_cards):
 
 
 def same_rank_combinations(list_of_cards):
-    L= list_of_cards
     D={}
-    for m in L:
+    for m in list_of_cards:
         D[m.rank]=m
     lst=[]
-    for n in L:
+    for n in list_of_cards:
         lst.append(n.rank)
     combinations_list=[]
     tokens = 0
@@ -156,10 +164,9 @@ def same_rank_combinations(list_of_cards):
 
 def cards_same_suit(list_of_cards): #function for flush
     flush = False
-    L = list_of_cards
     C=[]
-    for j in L:
-        a= sum(t.suit == j.suit for t in L)
+    for j in list_of_cards:
+        a= sum(t.suit == j.suit for t in list_of_cards)
         #print (a)
         if a >= 5:
             C.append(j)
@@ -448,20 +455,19 @@ def strongest_hand(hand_1,hand_2):
         #then refer to them here.
 
 
+
 def Kicker(hand, combination):
-    #return hand,combination
-    not_in_combination = []
-    for card in hand:
-        #print(card.rank)
-        if card.rank not in combination:
-            not_in_combination.append(card)
-    #return not_in_combination
+    not_in_combination = [card for card in hand if card.rank not in combination]
     Kicker = return_higher_card(not_in_combination)
     return Kicker
 
-#######combinations and dscision which combination is stronger ##################################################3
+#######combinations and descision which combination is stronger ##################################################3
 
-#print (strongest_hand(lst_0,lst_1))
+
+## testing kicker
+test_hand_1 = [cards("spades","Jack"),cards("hearts","Jack"),cards("spades","Jack"),cards("diamonds",8),cards("hearts","Jack")]
+test_hand_2 = [cards("hearts",10),cards("diamonds",10),cards("hearts",10),cards("spades",10),cards("diamonds","King"),]
+print ("Kicker test: ", strongest_hand(test_hand_1,test_hand_2))
 
 
 
