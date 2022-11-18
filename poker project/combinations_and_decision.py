@@ -2,6 +2,7 @@
 import random
 import operator
 
+#from main import *
 
 
 
@@ -10,24 +11,6 @@ import operator
 
 
 
-def cards_values():
-        # initiate the dict with the numbered cards
-        card_val = { i:i for i in range(2, 11) }
-        # add the non-numbered cards to the dict 
-        card_val.update({"Jack": 11, "Queen": 12, "King": 13, "Ace": 14})
-        return card_val
-
-print(f"cards_values function test: {cards_values()}")
-
-
-def cards_values_reversed():
-    # Create the dict by using reversing keys and values from cards_values dict
-    card_val_reversed = { cards_values()[i]:i for i in cards_values() }
-    # In case Ace is used as 1 in straight    
-    card_val_reversed.update({1: "Ace"}) 
-    return card_val_reversed
-
-print(f"cards_values_reversed function test: {cards_values_reversed()}")
 
 
 
