@@ -33,12 +33,31 @@ class cards:
         return False
 
 
-
     '''def cards_values(self):
         card_val = {"Jack": 11, "Queen": 12, "King": 13, "Ace": 14}
         for i in range(2, 11):
             card_val[i] = i
         return card_val'''
+
+
+def cards_values():
+        # initiate the dict with the numbered cards
+        card_val = { i:i for i in range(2, 11) }
+        # add the non-numbered cards to the dict 
+        card_val.update({"Jack": 11, "Queen": 12, "King": 13, "Ace": 14})
+        return card_val
+
+
+def cards_values_reversed():
+    # Create the dict by using reversing keys and values from cards_values dict
+    card_val_reversed = { cards_values()[i]:i for i in cards_values() }
+    # In case Ace is used as 1 in straight    
+    card_val_reversed.update({1: "Ace"}) 
+    return card_val_reversed
+
+
+
+
 
 
 
@@ -56,13 +75,10 @@ print (best_hand_eu)
 
 
 
-
 #print(straight_flush_and_royal_flush(card31, card32, card33, card34, card35, card36, card37))
+#print(same_rank_combinations([card_1,card_2,card_3,card_4,card_5,card_6,card_7]))
 
 
-king_of_diamonds = cards("diamond","King")
-
-king_of_spades= cards("spades","King")
 
 card_1=cards("spades","King")
 card_2=cards("spades","Ace")
@@ -71,9 +87,6 @@ card_4=cards("clubs",9)
 card_5=cards("spades","Queen")
 card_6=cards("spades",5)
 card_7=cards("spades",10)
-
-#print(same_rank_combinations([card_1,card_2,card_3,card_4,card_5,card_6,card_7]))
-
 
 card11=cards("spades","Queen")
 card12=cards("clubs",9)
@@ -99,26 +112,10 @@ card35=cards("diamonds","Queen")
 card36=cards("spades",2)
 card37=cards("spades","Ace")
 
-
 lst_0 = [card_1,card_2,card_3,card_4,card_5,card_6,card_7]
 lst_1 = [card11,card12,card13,card14,card15,card16,card17]
 lst_2 = [card21,card22,card23,card24,card25,card26,card27]
 lst_3 = [card31,card32,card33,card34,card35,card36,card37]
-
-
-
-
-
-
-
-## testing kicker
-test_hand_1 = [cards("spades","Jack"),cards("hearts","Jack"),cards("spades","Jack"),cards("diamonds",8),cards("hearts","Jack")]
-test_hand_2 = [cards("hearts",10),cards("diamonds",10),cards("hearts",10),cards("spades",10),cards("diamonds","King"),]
-test_hand_1 = [cards("spades",8),cards("hearts",2),cards("spades",10),cards("diamonds","Ace"),cards("hearts","Jack")]
-test_hand_2 = [cards("hearts",8),cards("diamonds",6),cards("hearts",10),cards("spades",10),cards("diamonds","King"),]
-print ("Kicker test: ", strongest_hand(test_hand_1,test_hand_2))
-
-
 
 
 
@@ -130,9 +127,7 @@ def single_card_generator():
     suit = random.choice(["diamonds","spades","clubs","hearts"])
     possible_ranks = list(range(2,11))
     possible_ranks.extend(["Jack","Queen","King","Ace"])
-    #L.extend(["Jack","Queen","King","Ace"])
     rank = random.choice(possible_ranks)
-    #card1 = cards(suit,rank)
     return cards(suit,rank)
 
 
@@ -143,44 +138,17 @@ def multiple_card_generator(n, used_cards = []):
     # get n random generated cards without doubles.
     # the used_cards argument is a list of cards already used in a current poker round, and so if we wanted
     # to generate cards for rounds we should generate cards that were not used already in the current round.
-
-
-    # if not used_cards:
-    #     generated_cards = []
-    # else:
-    #     #generated_cards = used_cards
-    #     generated_cards = used_cards.copy()
-
     generated_cards = []
-
-    #card_count = 0
     while len(generated_cards) < n:
         generated_card = single_card_generator()
         if (generated_card not in generated_cards) and (generated_card not in used_cards):
             generated_cards.append(generated_card)
-            #card_count +=1
-
     return generated_cards
-             
-
-    # while len(generated_cards) < n:
-    #     generated_card = single_card_generator()
-    #     if generated_card not in generated_cards:
-    #         generated_cards.append(generated_card)
-    # return generated_cards
 
 print("multiple_card_generator: ",multiple_card_generator(7))
 
 
-# c1 = cards("spades",7)
-# c2 = cards("spades",7)
-# print(c1 == c2) 
-# print(str(c1)) 
-
-
 ######## starting at 13.02.22
-
-
 
 
 class player:
@@ -252,25 +220,16 @@ def river(non_folded_players):
 
 generate_starting_hand_for_all_players(players)
 print("\n")
-# print("used_cards_for_current_round: ",used_cards_for_current_round)
 for player in players:
     print(player.name,"starting hand: " ,player.start_hand)
-# print("\n")
 
 
 flop(non_folded_players)
 turn(non_folded_players)
 river(non_folded_players)
 print("common_cards: ",common_cards)
-#print("\n")
 print("used_cards_for_current_round: ",used_cards_for_current_round)
-# print("maxim.common_cards: ",maxim.common_cards)
-# print("dude.common_cards: ",dude.common_cards)
-# print("bro.common_cards: ",bro.common_cards)
 
-
-
-#print ("strongest_hand: ",strongest_hand(lst_0,lst_2))
 
 
 # def determine_winner_for_current_round(non_folded_players):
