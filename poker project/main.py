@@ -117,7 +117,8 @@ lst_1 = [card11,card12,card13,card14,card15,card16,card17]
 lst_2 = [card21,card22,card23,card24,card25,card26,card27]
 lst_3 = [card31,card32,card33,card34,card35,card36,card37]
 
-
+print(f"\return_highest_card: {return_highest_card(lst_3)}")
+print(f"return_lowest_card: {return_lowest_card(lst_3)}\n")
 
 
 ######## starting at 13.02.22

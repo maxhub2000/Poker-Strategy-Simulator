@@ -1,30 +1,12 @@
-
 import random
 import operator
 
-#from main import *
+def return_highest_card(list_of_cards):
+    return max(list_of_cards, key=operator.attrgetter("number_value"))
 
 
-
-
-
-
-
-
-
-
-
-
-def return_higher_card(list_of_cards):
-    #L = get_compared_cards(card_1, card_2, card_3, card_4, card_5, card_6, card_7)
-    sorted_L = sorted(list_of_cards, key=operator.attrgetter("number_value"), reverse=True)
-    return sorted_L[0]
-
-
-def return_lower_card(list_of_cards):
-    #L = get_compared_cards(card_1, card_2, card_3, card_4, card_5, card_6, card_7)
-    sorted_L = sorted(list_of_cards, key=operator.attrgetter("number_value"),reverse=True)
-    return sorted_L[-1]
+def return_lowest_card(list_of_cards):
+    return min(list_of_cards, key=operator.attrgetter("number_value"))
 
 
 
@@ -40,7 +22,7 @@ def combinations_ranking():
 
 
 def high_card(list_of_cards):
-    higher_card_rank = return_higher_card(list_of_cards)
+    higher_card_rank = return_highest_card(list_of_cards)
     return ("High Card", higher_card_rank)
 
 
@@ -68,7 +50,7 @@ def same_rank_combinations(list_of_cards):
             combinations_list.append(("Four of a kind",[card]))
             break
     if len(A)==3:
-          A.remove(return_lower_card([D[A[0]],D[A[1]],D[A[2]]]).rank)
+          A.remove(return_lowest_card([D[A[0]],D[A[1]],D[A[2]]]).rank)
     if len(A)==2:
         combinations_list.append(("two pair",sorted([A[0],A[1]], reverse= True)))
         tokens=2
@@ -76,13 +58,13 @@ def same_rank_combinations(list_of_cards):
         combinations_list.append(("Pair",[A[0]]))
         tokens=1
     if len(B)==2:
-        triple_value=return_higher_card([D[B[0]],D[B[1]]])
+        triple_value=return_highest_card([D[B[0]],D[B[1]]])
         B.remove(triple_value.rank)
         double_value=B[0]
     elif len(B)==1:
         triple_value=B[0]
         if tokens==2:
-            double_value= return_higher_card([D[A[0]],D[A[1]]]).rank
+            double_value= return_highest_card([D[A[0]],D[A[1]]]).rank
         elif tokens==1:
             double_value= A[0]
         elif tokens==0:
@@ -119,7 +101,7 @@ def flush(list_of_cards):
     while len(C)>5:
         min_object= C[0]
         for i in range(1,len(C)):
-            if min_object != return_lower_card([C[i],min_object]):
+            if min_object != return_lowest_card([C[i],min_object]):
                 min_object=C[i]
         C.remove(min_object)
     C = sorted(C, key=operator.attrgetter("number_value"), reverse= True)
@@ -317,7 +299,7 @@ def strongest_hand(hand_1,hand_2):
                 Kicker_1 = Kicker(hand_1,best_hand_1[1])
                 Kicker_2 = Kicker(hand_2,best_hand_2[1])
                 if Kicker_1.number_value != Kicker_2.number_value:
-                    higher_kicker = return_higher_card([Kicker_1,Kicker_2])
+                    higher_kicker = return_highest_card([Kicker_1,Kicker_2])
                     return [best_hand_1, "kicker: " + str(higher_kicker.rank)] # couldeve written best_hand_2 as well
                 else:
                     return "DRAW!"
@@ -342,7 +324,7 @@ def strongest_hand(hand_1,hand_2):
 
 def Kicker(hand, combination):
     not_in_combination = [card for card in hand if card.rank not in combination]
-    Kicker = return_higher_card(not_in_combination)
+    Kicker = return_highest_card(not_in_combination)
     return Kicker
 
 #######combinations and descision which combination is stronger ##################################################3
